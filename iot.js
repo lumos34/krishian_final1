@@ -3,6 +3,7 @@
 var awsIot = require('aws-iot-device-sdk');
 const express = require('express');
 const socket = require('./socket.js')
+const port= process.env.port || 8080;
 
 const app = express();
 
@@ -99,8 +100,8 @@ const handler = (req, res) => {
 // ********************************** routes *****************************
 app.get('/', handler);
 
-const server = app.listen(port = 8080, host = 'localhost', () => {
-  console.log(`Server runnting at http://${host}:${port}`);
+const server = app.listen(port, () => {
+  console.log(`Server runnting at ${port}`);
 });
 
 const io = socket.init(server);
@@ -109,4 +110,6 @@ io.on('connection', socket => {
   console.log('Client has connected');
 })
 
-
+// const server = app.listen(port = 8080, host = 'localhost', () => {
+//   console.log(`Server runnting at http://${host}:${port}`);
+// });
